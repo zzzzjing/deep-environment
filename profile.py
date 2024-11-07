@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # 导入 Portal 和 ProtoGENI 库
 import geni.portal as portal
 import geni.rspec.pg as pg
