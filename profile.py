@@ -23,4 +23,20 @@ setup_script = (
     "sudo apt-get update -y && "
     "sudo apt-get install -y build-essential gcc g++ make && "
     "sudo apt-get install -y python3 python3-pip && "
-    "wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_520.61.
+    "wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/"
+    "cuda_11.7.1_520.61.05_linux.run && "
+    "sudo sh cuda_11.7.1_520.61.05_linux.run --silent --toolkit --samples && "
+    "echo 'export PATH=/usr/local/cuda-11.7/bin:$PATH' >> ~/.bashrc && "
+    "echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc && "
+    "source ~/.bashrc && "
+    "pip3 install torch torchvision torchaudio tensorflow && "
+    "python3 -c \"import torch; print('PyTorch version:', torch.__version__)\" && "
+    "python3 -c \"import tensorflow as tf; print('TensorFlow version:', tf.__version__)\" && "
+    "echo 'Deep learning environment installation completed'"
+)
+
+# Add the installation script as a service to the node
+node.addService(pg.Execute(shell="bash", command=setup_script))
+
+# Output the RSpec
+pc.printRequestRSpec(request)
